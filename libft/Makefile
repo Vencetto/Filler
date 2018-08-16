@@ -43,6 +43,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	@ar rc $(NAME) $(OBJ)
 	@ranlib $(NAME)
+	@echo "\033[32mmake for \033[36mlibft \033[32mdone\033[0m"
 
 %.o: %.c includes/ft_printf.h
 	@gcc -c $< -o $@ $(FLAGS)

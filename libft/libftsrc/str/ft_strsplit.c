@@ -12,31 +12,44 @@
 
 #include "../libft.h"
 
-char			**ft_strsplit(char const *s, char c)
+static	t_pack	help_func(t_pack *struc)
 {
-	char	**arr;
-	size_t	k;
-	size_t	i;
 	size_t	len;
 	size_t	j;
 
+	while (struc->s[struc->i] == struc->c && struc->s[struc->i])
+		struc->i++;
+	if (!(struc->arr[struc->k] = (char*)malloc(sizeof(char) *
+					(len = ft_chars(&struc->s[struc->i], struc->c)) + 1)))
+		return (*struc);
+	j = 0;
+	while (j < len)
+	{
+		struc->arr[struc->k][j] = struc->s[struc->i];
+		struc->i++;
+		j++;
+	}
+	struc->arr[struc->k++][j] = '\0';
+	struc->i++;
+	return (*struc);
+}
+
+char			**ft_strsplit(char const *s, char c)
+{
+	char	**arr;
+	int		tmp;
+	t_pack	struc;
+
 	if (!s || !(arr = (char**)malloc(sizeof(char*) * (ft_wordnum(s, c) + 1))))
 		return (NULL);
-	k = 0;
-	i = 0;
-	while (k < ft_wordnum(s, c))
-	{
-		while (s[i] == c && s[i])
-			i++;
-		if (!(arr[k] = (char*)malloc(sizeof(char) *
-						(len = ft_chars(&s[i], c)) + 1)))
-			return (0);
-		j = 0;
-		while (j < len)
-			arr[k][j++] = s[i++];
-		arr[k++][j] = '\0';
-		i++;
-	}
-	arr[k] = NULL;
+	struc.k = 0;
+	struc.i = 0;
+	tmp = ft_wordnum(s, c);
+	struc.s = (char *)s;
+	struc.c = c;
+	struc.arr = arr;
+	while (struc.k < tmp)
+		struc = help_func(&struc);
+	arr[struc.k] = NULL;
 	return (arr);
 }

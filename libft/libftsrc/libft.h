@@ -26,6 +26,15 @@ typedef	struct		s_list
 	struct s_list	*next;
 }					t_list;
 
+typedef	struct		s_pack
+{
+	int				i;
+	int				k;
+	char			c;
+	char			*s;
+	char			**arr;
+}					t_pack;
+
 void				*ft_memset(void *b, int c, size_t len);
 void				ft_bzero(void *s, size_t n);
 void				*ft_memcpy(void *dest, const void *src, size_t n);

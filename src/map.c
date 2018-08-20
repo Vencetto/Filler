@@ -25,6 +25,8 @@ void	make_map(t_map *tool)
 		free(line);
 	}
 	tmp = ft_strsplit(line, ' ');
+	tool->map_x = ft_atoi(tmp[1]);
+	tool->map_y = ft_atoi(tmp[2]);
 	tool->map = ft_memforarr(tool->map, ft_atoi(tmp[1]), ft_atoi(tmp[2]));
 	// show_arr(tool->map);
 }

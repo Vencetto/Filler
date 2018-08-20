@@ -12,27 +12,34 @@
 
 #include "../include/filler.h"
 
-char	**ft_memforarr(int max, char **map)
+char	**ft_memforarr(char **arr, int x, int y)
 {
 	int i;
 
-	map = (char**)malloc(sizeof(char*) * max);
+	arr = (char **)malloc(sizeof(char*) * x + 1);
 	i = -1;
-	while (i < max)
-		map[++i] = (char*)malloc(sizeof(char) * max);
-	map[i] = NULL;
-	return (map);
+	while (i < x)
+		arr[++i] = (char*)malloc(sizeof(char) * y + 1);
+	arr[++i] = NULL;
+	return (arr);
 }
 
-char	check_player(void)
+void	check_player(t_map *tool)
 {
 	char	*line = NULL;
 
 	get_next_line(0, &line);
 	if (ft_strstr(line, "vzomber"))
-		return ('o');
+	{
+		tool->m_symb = 'O';
+		tool->o_symb = 'X';
+	}
+	else
+	{
+		tool->m_symb = 'X';
+		tool->o_symb = 'O';
+	}
 	free(line);
-	return ('x');
 }
 
 void	show_arr(char **arr)
@@ -49,12 +56,13 @@ void	show_arr(char **arr)
 
 int		main(void)
 {
-	char	ch;
-	char	**map;
+	t_map	tool;
 
-	ch = check_player();
-	// ft_printf("Player: %c\n", ch);
-	map = make_map();
-	read_map_loop(map);
+	tool.map = NULL;
+	tool.piece = NULL;;
+	check_player(&tool);
+	// ft_printf("Player: %c\n", tool.m_symb);
+	make_map(&tool);
+	read_map_loop(&tool);
 	return (0);
 }

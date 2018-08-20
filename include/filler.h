@@ -15,15 +15,29 @@
 
 # include "../libft/includes/ft_printf.h"
 
+typedef	struct	s_coords
+{
+			int	*x;
+			int	*y;
+}				t_coords;
 
-char	**ft_memforarr(int max, char **map);
-char	check_player(void);
-int		get_max(char *s1, char *s2);
-char	**make_map(void);
-char	**make_piece(char **piece, char *line);
-char	**fill_map(char **map);
-void		read_map_loop(char **map);
-void	algo(char **map, char **piece);
-void	show_arr(char **arr);
+typedef	struct	s_map
+{
+		char	**map;
+		char	**piece;
+		char	m_symb;
+		char	o_symb;
+		int		i;
+		int		j;
+}				t_map;
+
+char		**ft_memforarr(char **arr, int x, int y);
+void		check_player(t_map *map);
+void		make_map(t_map *tools);
+void		make_piece(t_map *tool, char *line);
+void		fill_map(t_map *tool);
+void		read_map_loop(t_map *tool);
+void		algo(t_map *tool);
+void		show_arr(char **arr);
 
 #endif

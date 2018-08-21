@@ -12,67 +12,80 @@
 
 #include "../include/filler.h"
 
-int		check_piece(char ch)
+bool	lay_on(t_map *tool, int i, int j)
 {
-	if (ch == '*')
-		return (1);
-	return (0);
-}
+	int	tmp;
 
-int		n_check_map(t_map *tool)	// один раз своїх зачепив
-{
-	int	k;
-
-	k = 0;
-	if (tool->map[i][j] && tool->map[i][j] != tool->o_symb)
-		k++;
-	
-}
-
-void	check_map(t_map *tool)
-{
-	
-}
-
-void	try_put(t_map *tool)
-{
-	int m;
-	int	n;
-
-	m = 0;
-	while (tool->piece[m])
+	tmp = 0;
+	tool->tmp = tool->j;
+	while (tool->piece[i])
 	{
-		while (tool->piece[m][n])
+		tmp ? (j = 0) : 0;
+		tmp ? (tool->j = tool->tmp) : 0;
+		while (tool->piece[i][j])
 		{
-			if (check_piece(tool->piece[m][n]))
-				check_map(tool);
-			n++;
+			if (tool->piece[i][j] == '*')
+			{
+				if (!(tool->map[tool->i][tool->j] &&
+					tool->map[tool->i][tool->j] != tool->o_symb))
+					return (false);
+			}
+			j++;
+			tool->j++;
 		}
-		m++;
+		tmp = 1;
+		tool->i++;
+		i++;
 	}
+	return (true);
 }
 
-void	search_space(t_map *tool)
+bool	is_space(t_map *tool)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (tool->map[i])
+	while (tool->piece[i])
 	{
-		while (tool->map[i][j])
+		j = 0;
+		while (tool->piece[i][j])
 		{
-			if (tool->map[i][j] == m_symb)
-				try_put(tool);
+			if (tool->piece[i][j] == '*')
+				return (lay_on(tool, i, j));
 			j++;
 		}
 		i++;
 	}
+	return (false);
 }
 
 void	algo(t_map *tool)
 {
-	// (void)tool;
+	int			i;
+	int			j;
+	t_coords	xy;
 
-	search_space(tool);
+	xy.dist = 10000;
+	i = 0;
+	while (tool->map[i])
+	{
+		j = 0;
+		while (tool->map[i][j])
+		{
+			if (tool->map[i][j] == tool->m_symb)
+			{
+				ft_printf("m_symb: %c\n", tool->m_symb);
+				tool->i = i;
+				tool->j = j;
+				if (is_space(tool))// && no_enemy(tool) && one_contact(tool))
+					ft_printf("yeah");//find_dist(tool, &xy); // if new_dist <= old_dist -> xy->dist = new_dist; xy->x = x_coord; xy->y = y_coord;
+				else
+					ft_printf("neah");
+			}
+			j++;
+		}
+		i++;
+	}
+	// ft_printf("%d %d", xy.x, xy.x);
 }

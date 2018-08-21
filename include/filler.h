@@ -14,11 +14,13 @@
 # define FILLER_H
 
 # include "../libft/includes/ft_printf.h"
+# include <stdbool.h>
 
 typedef	struct	s_coords
 {
-			int	*x;
-			int	*y;
+			int	x;
+			int	y;
+			int	dist;
 }				t_coords;
 
 typedef	struct	s_map
@@ -31,6 +33,7 @@ typedef	struct	s_map
 		char	o_symb;
 		int		i;
 		int		j;
+		int		tmp;
 }				t_map;
 
 char			**ft_memforarr(char **arr, int x, int y);
@@ -42,9 +45,11 @@ void			read_map_loop(t_map *tool);
 void			algo(t_map *tool);
 void			show_arr(char **arr);
 void			algo(t_map *tool);
-void			search_space(t_map *tool);
-void			try_put(t_map *tool);
-int				check_piece(char ch);
-int				check_map(char **map, int i, int j);
+void			set_struct_0(t_map *tool);
+bool			is_space(t_map *tool);
+bool			lay_on(t_map *tool, int i, int j);
+// bool			no_enemy(t_map tool);
+// bool			one_contact(t_map tool);
+// void			find_dist(t_map tool, t_coords xy);
 
 #endif

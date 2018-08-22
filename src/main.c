@@ -65,6 +65,7 @@ void	set_struct_0(t_map *tool)
 	tool->i = 0;
 	tool->j = 0;
 	tool->tmp = 0;
+	tool->neib = 0;
 }
 
 int		main(void)

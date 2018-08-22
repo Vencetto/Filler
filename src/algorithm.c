@@ -15,26 +15,26 @@
 bool	lay_on(t_map *tool, int i, int j)
 {
 	int	tmp;
+	int	x;
+	int y;
 
-	tmp = 0;
-	tool->tmp = tool->j;
+	x = tool->i;
+	y = tool->j;
+	tmp = j;
 	while (tool->piece[i])
 	{
-		tmp ? (j = 0) : 0;
-		tmp ? (tool->j = tool->tmp) : 0;
+		j = tmp;
 		while (tool->piece[i][j])
 		{
 			if (tool->piece[i][j] == '*')
 			{
-				if (!(tool->map[tool->i][tool->j] &&
-					tool->map[tool->i][tool->j] != tool->o_symb))
+				tool->map[x + i][y + j] == tool->m_symb ? tool->neib++ : 0;
+				if (!(tool->map[x + i][y + j] &&
+					tool->map[x + i][y + j] != tool->o_symb))
 					return (false);
 			}
 			j++;
-			tool->j++;
 		}
-		tmp = 1;
-		tool->i++;
 		i++;
 	}
 	return (true);
@@ -71,21 +71,16 @@ void	algo(t_map *tool)
 	while (tool->map[i])
 	{
 		j = 0;
+		tool->i = i;
 		while (tool->map[i][j])
 		{
-			if (tool->map[i][j] == tool->m_symb)
-			{
-				ft_printf("m_symb: %c\n", tool->m_symb);
-				tool->i = i;
-				tool->j = j;
-				if (is_space(tool))// && no_enemy(tool) && one_contact(tool))
-					ft_printf("yeah");//find_dist(tool, &xy); // if new_dist <= old_dist -> xy->dist = new_dist; xy->x = x_coord; xy->y = y_coord;
-				else
-					ft_printf("neah");
-			}
+			tool->j = j;
+			tool->neib = 0;
+			if (is_space(tool) && tool->neib == 1)
+				find_dist(tool, &xy);
 			j++;
 		}
 		i++;
 	}
-	// ft_printf("%d %d", xy.x, xy.x);
+	ft_printf("%d %d", xy.x, xy.y);
 }

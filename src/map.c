@@ -48,8 +48,8 @@ void	make_piece(t_map *tool, char *line)
 		free(line);
 	}
 	tool->piece[i] = NULL;
-	ft_printf("Piece:\n");
-	show_arr(tool->piece);
+	// ft_printf("Piece:\n");
+	// show_arr(tool->piece);
 }
 
 void	fill_map(t_map *tool)
@@ -70,8 +70,8 @@ void	fill_map(t_map *tool)
 		free(line);
 	}
 	tool->map[i] = NULL;
-	ft_printf("\nMap:\n");
-	show_arr(tool->map);
+	// ft_printf("\nMap:\n");
+	// show_arr(tool->map);
 	if (ft_strstr(line, "Piece"))
 		make_piece(tool, line);
 }

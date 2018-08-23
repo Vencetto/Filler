@@ -15,26 +15,28 @@
 bool	lay_on(t_map *tool, int i, int j)
 {
 	int	tmp;
-	int	x;
-	int y;
 
-	x = tool->i;
-	y = tool->j;
 	tmp = j;
-	while (tool->piece[i])
+	tool->tmp = tool->j;
+	while (tool->piece[i] && tool->map[tool->i])
 	{
-		j = tmp;
-		while (tool->piece[i][j])
+		j =  tmp;
+		tool->j = tool->tmp;
+		while (tool->piece[i][j] && tool->map[tool->i][tool->j])
 		{
 			if (tool->piece[i][j] == '*')
 			{
-				tool->map[x + i][y + j] == tool->m_symb ? tool->neib++ : 0;
-				if (!(tool->map[x + i][y + j] &&
-					tool->map[x + i][y + j] != tool->o_symb))
+				ft_printf("%c", tool->map[tool->i][tool->j]);
+				if (tool->map[tool->i][tool->j] == tool->m_symb)
+					ft_printf("hey");
+				tool->map[tool->i][tool->j] == tool->m_symb ? tool->neib++ : 0;
+				if (tool->map[tool->i][tool->j] == tool->o_symb)
 					return (false);
 			}
 			j++;
+			tool->j++;
 		}
+		tool->i++;
 		i++;
 	}
 	return (true);
@@ -65,7 +67,10 @@ void	algo(t_map *tool)
 	int			i;
 	int			j;
 	t_coords	xy;
-
+int	k,l;
+k = l = 0;
+	xy.x = -12;
+	xy.y = -12;
 	xy.dist = 10000;
 	i = 0;
 	while (tool->map[i])
@@ -76,11 +81,14 @@ void	algo(t_map *tool)
 		{
 			tool->j = j;
 			tool->neib = 0;
-			if (is_space(tool) && tool->neib == 1)
-				find_dist(tool, &xy);
+			if (is_space(tool))
+				k++;
+			if (tool->neib == 1)
+				l++;
+				// find_dist(tool, &xy);
 			j++;
 		}
 		i++;
 	}
-	ft_printf("%d %d", xy.x, xy.y);
+	ft_printf("%d %d", k, l);
 }

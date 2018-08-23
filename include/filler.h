@@ -51,8 +51,8 @@ void				set_struct_0(t_map *tool);
 bool				is_space(t_map *tool);
 bool				lay_on(t_map *tool, int i, int j);
 void				find_dist(t_map *tool, t_coords *xy);
-void				figure_dist(t_map *tool, t_coords *enemy);
-t_coords			ft_skip(char **piece, t_coords xy);
+t_coords			figure_dist(t_map *tool, t_coords *enemy);
+t_coords			ft_skip(char **piece, t_coords *xy);
 void				find_nearest(t_coords *enemy, t_map *tool);
 int					distance(int x1, int y1, int x2, int y2);
 

@@ -12,32 +12,33 @@
 
 #include "../include/filler.h"
 
-int		distance(int x1, int y1, int x2, int y2)
+int				distance(int x1, int y1, int x2, int y2)
 {
 	return (ft_abs(x2 - x1) + ft_abs(y2 - y1));
 }
 
-void	find_nearest(t_coords *enemy, t_map *tool)
+void			find_nearest(t_coords *enemy, t_map *tool)
 {
-	int		i;
-	int		j;
-	int		dist;
-	int		b_dist;
+	int			i;
+	int			j;
+	int			dist;
 
 	i = 0;
-	b_dist = 999;
-	while (map[i])
+	enemy->dist = 999;
+	while (tool->map[i])
 	{
 		j = 0;
-		while (map[i][j])
+		while (tool->map[i][j])
 		{
-			if (map[i][j] == tool->o_symb)
-				dist = distance(i, j, tool->i, tool->j);
-			if (dist <= b_dist)
+			if (tool->map[i][j] == tool->o_symb)
 			{
-				b_dist = dist;
-				enemy->x = i;
-				enemy->y = j;
+				dist = distance(i, j, tool->i, tool->j);
+				if (dist < enemy->dist)
+				{
+					enemy->dist = dist;
+					enemy->x = i;
+					enemy->y = j;
+				}
 			}
 			j++;
 		}
@@ -45,10 +46,10 @@ void	find_nearest(t_coords *enemy, t_map *tool)
 	}
 }
 
-t_coords ft_skip(char **piece, t_coords xy)
+t_coords		ft_skip(char **piece, t_coords *xy)
 {
-	int i;
-	int	j;
+	int			i;
+	int			j;
 
 	i = 0;
 	while (piece[i])
@@ -59,51 +60,56 @@ t_coords ft_skip(char **piece, t_coords xy)
 			if (piece[i][j] == '*')
 			{
 				xy->x = i;
-				xy->y - j;
-				return (xy);
+				xy->y = j;
+				return (*xy);
 			}
 			j++;
 		}
 		i++;
 	}
-	return (NULL);
+	return (*xy);
 }
 
-void	figure_dist(t_map *tool, t_coords *enemy)
+t_coords		figure_dist(t_map *tool, t_coords *figure)
 {
 	int			tmp;
 	int			x;
 	int			y;
 	t_coords	ij;
+	t_coords	ret;
 
 	x = tool->i;
 	y = tool->j;
-	tmp = ij.j;
-	enemy->dist = 0;
+	tmp = ij.y;
+	figure->dist = 0;
 	ij = ft_skip(tool->piece, &ij);
-	while (tool->piece[ij.i])
+	ret = ij;
+	while (tool->piece[ij.x])
 	{
-		ij.j = tmp;
-		while (tool->piece[ij.i][ij.j])
+		ij.y = tmp;
+		while (tool->piece[ij.x][ij.y])
 		{
-			if (tool->piece[ij.i][ij.j] == '*')
-				enemy->dist += distance(ij.i, ij.j, enemy->x, enemy->y);
-			ij.j++;
+			if (tool->piece[ij.x][ij.y] == '*')
+				figure->dist += distance(ij.x, ij.y, figure->x, figure->y);
+			ij.y++;
 		}
-		ij.i++;
+		ij.x++;
 	}
+	return (ret);
 }
 
-void	find_dist(t_map *tool, t_coords *xy)
+void			find_dist(t_map *tool, t_coords *xy)
 {
 	t_coords	enemy;
+	t_coords	shift;
 
 	find_nearest(&enemy, tool);
-	figure_dist(tool, &enemy);
-	if (xy->dist < enemy->dist)
+	printf("#enemy# x %d, y %d, dist: %d\n",enemy.x, enemy.y, enemy.dist);
+	shift = figure_dist(tool, &enemy);
+	if (xy->dist > enemy.dist)
 	{
-		xy->dist = enemy->dist;
-		xy->x = enemy->x;
-		xy->y = enemy->y;
+		xy->dist = enemy.dist;
+		xy->x = tool->i - shift.x;
+		xy->y = tool->j - shift.y;
 	}
 }

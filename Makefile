@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 NAME = vzomber.filler
-SRC  = src/main.c src/map.c src/algorithm.c src/dist.c
+SRC  = src/main.c src/map.c src/algorithm.c src/dist.c src/additional.c
 OBJ = $(SRC:.c=.o)
 FLAGS = -Wall -Wextra -Werror
 SEGF = -g -fsanitize=address 

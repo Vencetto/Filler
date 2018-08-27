@@ -31,6 +31,35 @@ void	make_map(t_map *tool)
 	// show_arr(tool->map);
 }
 
+void	find_start(t_map *tool)
+{
+	int	i;
+	int	j;
+	int	x;
+	int	y;
+
+	i = 0;
+	x = 999;
+	y = 999;
+	while (tool->piece[i])
+	{
+		j = 0;
+		while (tool->piece[i][j])
+		{
+			if (tool->piece[i][j] == '*')
+			{
+				i < x ? (x = i) : 0;
+				j < y ? (y = j) : 0;
+			}
+			j++;
+		}
+		i++;
+	}
+	tool->start.x = x;
+	tool->start.y = y;
+	// tool->piece[tool->start.x][tool->start.y] = '#';
+}
+
 void	make_piece(t_map *tool, char *line)
 {
 	int		i;
@@ -48,6 +77,8 @@ void	make_piece(t_map *tool, char *line)
 		free(line);
 	}
 	tool->piece[i] = NULL;
+	find_start(tool);
+	find_end(tool);
 	// ft_printf("Piece:\n");
 	// show_arr(tool->piece);
 }

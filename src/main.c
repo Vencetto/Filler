@@ -54,20 +54,6 @@ void	show_arr(char **arr)
 	}
 }
 
-void	set_struct_0(t_map *tool)
-{
-	tool->map = NULL;
-	tool->piece = NULL;
-	tool->map_x = 0;
-	tool->map_y = 0;
-	tool->m_symb = '0';
-	tool->o_symb = '0';
-	tool->i = 0;
-	tool->j = 0;
-	tool->tmp = 0;
-	tool->neib = 0;
-}
-
 int		main(void)
 {
 	t_map	tool;

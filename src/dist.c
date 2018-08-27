@@ -17,7 +17,7 @@ int				distance(int x1, int y1, int x2, int y2)
 	return (ft_abs(x2 - x1) + ft_abs(y2 - y1));
 }
 
-void			find_nearest(t_coords *enemy, t_map *tool)
+void			find_nearest(t_coords *enemy, t_map *tool, int x, int y)
 {
 	int			i;
 	int			j;
@@ -32,7 +32,7 @@ void			find_nearest(t_coords *enemy, t_map *tool)
 		{
 			if (tool->map[i][j] == tool->o_symb)
 			{
-				dist = distance(i, j, tool->i, tool->j);
+				dist = distance(i, j, x, y);
 				if (dist < enemy->dist)
 				{
 					enemy->dist = dist;
@@ -46,70 +46,38 @@ void			find_nearest(t_coords *enemy, t_map *tool)
 	}
 }
 
-t_coords		ft_skip(char **piece, t_coords *xy)
+void		figure_dist(t_map *tool, t_coords *enemy)
 {
 	int			i;
 	int			j;
 
-	i = 0;
-	while (piece[i])
+	enemy->dist = 0;
+	i = tool->start.x;
+	while (i < tool->end.x)
 	{
-		j = 0;
-		while (piece[i][j])
+		j = tool->start.y;
+		while (j < tool->end.y)
 		{
-			if (piece[i][j] == '*')
-			{
-				xy->x = i;
-				xy->y = j;
-				return (*xy);
-			}
+			if (tool->piece[i][j] == '*')
+				enemy->dist += distance(i, i, enemy->x, enemy->y);
 			j++;
 		}
 		i++;
 	}
-	return (*xy);
 }
 
-t_coords		figure_dist(t_map *tool, t_coords *figure)
-{
-	int			tmp;
-	int			x;
-	int			y;
-	t_coords	ij;
-	t_coords	ret;
-
-	x = tool->i;
-	y = tool->j;
-	tmp = ij.y;
-	figure->dist = 0;
-	ij = ft_skip(tool->piece, &ij);
-	ret = ij;
-	while (tool->piece[ij.x])
-	{
-		ij.y = tmp;
-		while (tool->piece[ij.x][ij.y])
-		{
-			if (tool->piece[ij.x][ij.y] == '*')
-				figure->dist += distance(ij.x, ij.y, figure->x, figure->y);
-			ij.y++;
-		}
-		ij.x++;
-	}
-	return (ret);
-}
-
-void			find_dist(t_map *tool, t_coords *xy)
+void			find_dist(t_map *tool, t_coords *xy, int i, int j)
 {
 	t_coords	enemy;
-	t_coords	shift;
 
-	find_nearest(&enemy, tool);
-	printf("#enemy# x %d, y %d, dist: %d\n",enemy.x, enemy.y, enemy.dist);
-	shift = figure_dist(tool, &enemy);
+	find_nearest(&enemy, tool, i, j);
+	// printf("#enemy# x %d, y %d, dist: %d\n",enemy.x, enemy.y, enemy.dist);
+	figure_dist(tool, &enemy);
 	if (xy->dist > enemy.dist)
 	{
 		xy->dist = enemy.dist;
-		xy->x = tool->i - shift.x;
-		xy->y = tool->j - shift.y;
+		xy->x = i - tool->start.x;
+		xy->y = j - tool->start.y;
+		// ft_printf("start: %d %d end: %d %d, i: %d j: %d\n", tool->start.x, tool->start.y, tool->end.x, tool->end.y, i, j);
 	}
 }

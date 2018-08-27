@@ -12,53 +12,42 @@
 
 #include "../include/filler.h"
 
-bool	lay_on(t_map *tool, int i, int j)
+bool	is_space(t_map *tool, int i, int j)
 {
 	int	tmp;
+	int	x;
+	int	y;
 
 	tmp = j;
-	tool->tmp = tool->j;
-	while (tool->piece[i] && tool->map[tool->i])
+	x = tool->start.x;
+	y = tool->start.y;
+	while (x < tool->end.x)
 	{
-		j =  tmp;
-		tool->j = tool->tmp;
-		while (tool->piece[i][j] && tool->map[tool->i][tool->j])
+		j = tmp;
+		while (y < tool->end.y)
 		{
-			if (tool->piece[i][j] == '*')
+			if (tool->piece[x][y] == '*')
 			{
-				ft_printf("%c", tool->map[tool->i][tool->j]);
-				if (tool->map[tool->i][tool->j] == tool->m_symb)
-					ft_printf("hey");
-				tool->map[tool->i][tool->j] == tool->m_symb ? tool->neib++ : 0;
-				if (tool->map[tool->i][tool->j] == tool->o_symb)
+				// (tool->map[i][j] == tool->m_symb) ? tool->neib++ : 0;
+				if (tool->map[i][j] == tool->m_symb)
+					ft_printf("waat\n");
+				if (tool->map[i][j] == tool->o_symb)
 					return (false);
 			}
+			y++;
 			j++;
-			tool->j++;
 		}
-		tool->i++;
+		x++;
 		i++;
 	}
 	return (true);
 }
 
-bool	is_space(t_map *tool)
+bool		in_map(t_map *tool, int i, int j)
 {
-	int	i;
-	int	j;
-
-	i = 0;
-	while (tool->piece[i])
-	{
-		j = 0;
-		while (tool->piece[i][j])
-		{
-			if (tool->piece[i][j] == '*')
-				return (lay_on(tool, i, j));
-			j++;
-		}
-		i++;
-	}
+	if (((tool->end.x - tool->start.x + i) < tool->map_x)
+		&& (tool->end.y - tool->start.y + j) < tool->map_y)
+		return (true);
 	return (false);
 }
 
@@ -67,28 +56,24 @@ void	algo(t_map *tool)
 	int			i;
 	int			j;
 	t_coords	xy;
-int	k,l;
-k = l = 0;
-	xy.x = -12;
-	xy.y = -12;
-	xy.dist = 10000;
+
+	xy.x = -120;
+	xy.y = -120;
+	xy.dist = 9999;
 	i = 0;
 	while (tool->map[i])
 	{
 		j = 0;
-		tool->i = i;
 		while (tool->map[i][j])
 		{
-			tool->j = j;
 			tool->neib = 0;
-			if (is_space(tool))
-				k++;
-			if (tool->neib == 1)
-				l++;
-				// find_dist(tool, &xy);
+			if ((in_map(tool, i, j)) && is_space(tool, i, j))// && tool->neib == 1)
+				find_dist(tool, &xy, i, j);
+				ft_printf("%d %d ", xy.x, xy.y);
 			j++;
 		}
 		i++;
 	}
-	ft_printf("%d %d", k, l);
+	ft_putnbr(xy.x);
+	ft_putnbr(xy.y);
 }

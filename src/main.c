@@ -42,7 +42,7 @@ void	check_player(t_map *tool)
 	free(line);
 }
 
-void	show_arr(char **arr)
+void	show_arr(char **arr)///////////////////////////
 {
 	int i;
 
@@ -58,11 +58,9 @@ int		main(void)
 {
 	t_map	tool;
 
-	// tool.map = NULL;
-	// tool.piece = NULL;
+	system("rm -rf log");
 	set_struct_0(&tool);
 	check_player(&tool);
-	// ft_printf("Player: %c\n", tool.m_symb);
 	make_map(&tool);
 	read_map_loop(&tool);
 	return (0);

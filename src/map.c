@@ -69,14 +69,18 @@ void	make_piece(t_map *tool, char *line)
 	tool->piece = ft_memforarr(tool->piece, ft_atoi(tmp[1]), ft_atoi(tmp[2]));
 	i = 0;
 	free(line);
-	while (get_next_line(0, &line) &&
-		(ft_strchr(line, '.') || ft_strchr(line, '*')))
+	system("echo '#'>>log");
+	while (get_next_line(0, &line)
+		&& (ft_strchr(line, '.') || ft_strchr(line, '*')))
 	{
+		system("echo '.'>>log");
 		ft_strcpy(tool->piece[i], line);
 		i++;
 		free(line);
 	}
+		system("echo '?'>>log");
 	tool->piece[i] = NULL;
+		system("echo '!'>>log");
 	find_start(tool);
 	find_end(tool);
 	// ft_printf("Piece:\n");

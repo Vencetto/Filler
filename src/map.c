@@ -10,114 +10,85 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/filler.h"
+#include "../includes/filler.h"
 
-void	make_map(t_map *tool)
+int			make_map(t_map *tool)
 {
 	char	*line = NULL;
 	char	**tmp;
+	int		i;
 
-	get_next_line(0, &line);
-	free(line);
-	while (!ft_strstr(line, "Plateau"))
+	while ((tool->ret = get_next_line(0, &line)) > 0)
 	{
-		get_next_line(0, &line);
-		free(line);
+		if (ft_strstr(line, "Plateau"))
+			break ;
+		ft_strdel(&line);
 	}
 	tmp = ft_strsplit(line, ' ');
-	tool->map_x = ft_atoi(tmp[1]);
-	tool->map_y = ft_atoi(tmp[2]);
-	tool->map = ft_memforarr(tool->map, ft_atoi(tmp[1]), ft_atoi(tmp[2]));
+	// tool->map_x = ft_atoi(tmp[1]);
+	// tool->map_y = ft_atoi(tmp[2]);
+	// tool->map = ft_memforarr(tool->map, ft_atoi(tmp[1]), ft_atoi(tmp[2]));
+	i = -1;
+	while (tmp[++i])
+		ft_strdel(&tmp[i]);
+	 ft_strdel(&line);
 	// show_arr(tool->map);
+	return (1);
 }
 
-void	find_start(t_map *tool)
-{
-	int	i;
-	int	j;
-	int	x;
-	int	y;
-
-	i = 0;
-	x = 999;
-	y = 999;
-	while (tool->piece[i])
-	{
-		j = 0;
-		while (tool->piece[i][j])
-		{
-			if (tool->piece[i][j] == '*')
-			{
-				i < x ? (x = i) : 0;
-				j < y ? (y = j) : 0;
-			}
-			j++;
-		}
-		i++;
-	}
-	tool->start.x = x;
-	tool->start.y = y;
-	// tool->piece[tool->start.x][tool->start.y] = '#';
-}
-
-void	make_piece(t_map *tool, char *line)
+void			make_piece(t_map *tool, char *line)
 {
 	int		i;
 	char	**tmp;
+	int		p_x;
+	int		p_y;
 
 	tmp = ft_strsplit(line, ' ');
-	tool->piece = ft_memforarr(tool->piece, ft_atoi(tmp[1]), ft_atoi(tmp[2]));
-	i = 0;
-	free(line);
-	system("echo '#'>>log");
-	while (get_next_line(0, &line)
-		&& (ft_strchr(line, '.') || ft_strchr(line, '*')))
+	p_x = ft_atoi(tmp[1]);
+	p_y = ft_atoi(tmp[2]);
+	tool->piece = ft_memforarr(tool->piece, p_x, p_y);
+	tool->piece_x = p_x;
+	tool->piece_y = p_y;
+	i = -1;
+	ft_strdel(&line);
+	while (++i < p_x && (tool->ret = get_next_line(0, &line)) > 0)
 	{
-		system("echo '.'>>log");
 		ft_strcpy(tool->piece[i], line);
-		i++;
-		free(line);
+		ft_strdel(&line);
 	}
-		system("echo '?'>>log");
 	tool->piece[i] = NULL;
-		system("echo '!'>>log");
-	find_start(tool);
-	find_end(tool);
-	// ft_printf("Piece:\n");
-	// show_arr(tool->piece);
+	i = -1;
+	while (tmp[++i])
+		ft_strdel(&tmp[i]);
+//	dprintf(2, "PIECE:\n");
+//	show_arr(tool->piece);
 }
 
-void	fill_map(t_map *tool)
+void		fill_map(t_map *tool)
 {
 	char	*line = NULL;
 	int		i;
 
 	i = 0;
-	while (get_next_line(0, &line) && !ft_strstr(line, "Piece") && tool->map[i])
+
+	tool->ret = get_next_line(0, &line);
+	if (ft_strstr(line, "Plateau"))
 	{
-		if (!ft_strchr(line, '.'))
-		{
-			free(line);
-			get_next_line(0, &line);
-		}
+		ft_strdel(&line);
+		tool->ret = get_next_line(0, &line);
+	}
+	ft_strdel(&line);
+	while ((tool->ret = get_next_line(0, &line)) && tool->map[i])
+	{
+		if (ft_strstr(line, "Piece"))
+			break ;
 		ft_strcpy(tool->map[i], line + 4);
 		i++;
-		free(line);
+		ft_strdel(&line);
 	}
 	tool->map[i] = NULL;
-	// ft_printf("\nMap:\n");
 	// show_arr(tool->map);
-	if (ft_strstr(line, "Piece"))
+	if (!line)
+		return ;
 		make_piece(tool, line);
-}
-
-void	read_map_loop(t_map *tool)
-{
-	char	*bf = NULL;
-
-	while (read(0, bf, 1))
-	{
-		fill_map(tool);
-		algo(tool);
-	}
 }

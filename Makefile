@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 NAME = vzomber.filler
-SRC  = src/main.c src/map.c src/algorithm.c src/dist.c src/additional.c
+SRC  = src/main.c src/map.c src/algorithm.c src/dist.c
 OBJ = $(SRC:.c=.o)
 FLAGS = -Wall -Wextra -Werror
 SEGF = -g -fsanitize=address 
@@ -19,10 +19,10 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@make -C ./libft
-	@gcc $(FLAGS) $(OBJ) -L libft/ -lft -o $(NAME)
+	@gcc $(FLAGS) $(OBJ) -L libft/ -lft -o $(NAME) -I libft/libftsrc -I libft
 	@echo "\033[32mmake for \033[36mFillit \033[32mdone\033[0m"
 	
-%.o: %.c include/filler.h
+%.o: %.c includes/filler.h
 	gcc -c $< -o $@ $(FLAGS)
 
 clean:

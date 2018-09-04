@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/filler.h"
+#include "../includes/filler.h"
 
 int				distance(int x1, int y1, int x2, int y2)
 {
@@ -23,14 +23,15 @@ void			find_nearest(t_coords *enemy, t_map *tool, int x, int y)
 	int			j;
 	int			dist;
 
-	i = 0;
+	i = -1;
 	enemy->dist = 999;
-	while (tool->map[i])
+	while (tool->map[++i])
 	{
-		j = 0;
-		while (tool->map[i][j])
+		j = -1;
+		while (tool->map[i][++j])
 		{
-			if (tool->map[i][j] == tool->o_symb)
+			if (tool->map[i][j] == tool->o_symb ||
+				tool->map[i][j] == tool->o_symb + 32)
 			{
 				dist = distance(i, j, x, y);
 				if (dist < enemy->dist)
@@ -40,13 +41,11 @@ void			find_nearest(t_coords *enemy, t_map *tool, int x, int y)
 					enemy->y = j;
 				}
 			}
-			j++;
 		}
-		i++;
 	}
 }
 
-void		figure_dist(t_map *tool, t_coords *enemy, int i, int j)
+void			figure_dist(t_map *tool, t_coords *enemy, int i, int j)
 {
 	int			x;
 	int			y;
@@ -54,12 +53,12 @@ void		figure_dist(t_map *tool, t_coords *enemy, int i, int j)
 
 	tmp = j;
 	enemy->dist = 0;
-	x = tool->start.x;
-	while (x < tool->end.x && i < tool->map_x)
+	x = 0;
+	while (x < tool->piece_x && i < tool->map_x)
 	{
 		j = tmp;
-		y = tool->start.y;
-		while (y < tool->end.y && j < tool->map_y)
+		y = 0;
+		while (y < tool->piece_y && j < tool->map_y)
 		{
 			if (tool->piece[x][y] == '*')
 				enemy->dist += distance(i, j, enemy->x, enemy->y);
@@ -80,7 +79,7 @@ void			find_dist(t_map *tool, t_coords *xy, int i, int j)
 	if (xy->dist > enemy.dist)
 	{
 		xy->dist = enemy.dist;
-		xy->x = i - tool->start.x;
-		xy->y = j - tool->start.y;
+		xy->x = i;
+		xy->y = j;
 	}
 }

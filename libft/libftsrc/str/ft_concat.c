@@ -1,56 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   man_hatt.c                                         :+:      :+:    :+:   */
+/*   ft_concat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vzomber <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/08/18 16:02:47 by vzomber           #+#    #+#             */
-/*   Updated: 2018/08/18 16:02:49 by vzomber          ###   ########.fr       */
+/*   Created: 2018/08/31 16:03:49 by vzomber           #+#    #+#             */
+/*   Updated: 2018/08/31 16:03:53 by vzomber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 
-
-t_cootds	find_min(char **map, int i, int j, t_coords *xy)
+char	*ft_concat(char *s1, char *s2)
 {
-	int	x
-	int	y;
+	char	*res;
 
-	while (map[i])
+	res = NULL;
+	if (s1 == NULL || s2 == NULL)
 	{
-		while (map[i][j])
-		{
-			if (map[i][j] == '1')
-			{
-
-			}
-			j++;
-		}
-		i++;
+		if (s1 == NULL && s2 != NULL)
+			res = ft_strdup(s2);
+		else if (s1 != NULL)
+			res = ft_strdup(s1);
 	}
-}
-
-char	**man_hatt(char **map)
-{
-	int			i;
-	int			j;
-	t_coords	xy;
-
-	i = 0;
-	while (map[i])
+	else
 	{
-		j= 0;
-		while (map[i][j])
+		if ((res = ft_strnew(ft_strlen(s1) + ft_strlen(s2))) != NULL)
 		{
-			if (map[i][j] == '.')
-			{
-				xy = find_min(map[i][j], i, j, &xy);
-				map[i][j] = find_dist(i, j);
-			}
-			j++;
+			ft_strcpy(res, s1);
+			ft_strcat(res, s2);
 		}
-		i++;
 	}
-	return (map);
+	return (res);
 }

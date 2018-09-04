@@ -109,4 +109,7 @@ size_t				ft_unistrlen(wchar_t *s);
 int					put_wchar(wchar_t c);
 int					count_bytes(wchar_t c);
 void				ft_uhuge_mzfk(uintmax_t nb);
+void				*ft_memcpy_fwd(void *dst, const void *src, size_t n);
+char				*ft_concat(char *s1, char *s2);
+void				ft_arrfree(char **arr);
 #endif

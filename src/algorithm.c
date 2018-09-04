@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/filler.h"
+#include "../includes/filler.h"
 
 bool	is_space(t_map *tool, int i, int j)
 {
@@ -19,25 +19,23 @@ bool	is_space(t_map *tool, int i, int j)
 	int	y;
 
 	tmp = j;
-	x = tool->start.x;
-	while (x <= tool->end.x)
+	x = -1;
+	while (++x < tool->piece_x)
 	{
 		j = tmp;
-		y = tool->start.y;
-		while (y <= tool->end.y)
+		y = -1;
+		while (++y < tool->piece_y)
 		{
 			if (tool->piece[x][y] == '*')
 			{
-				// ft_printf("i: %d j: %d\n", i, j);
-				(tool->map[i][j] == tool->m_symb) ? tool->neib++ : 0;
-				// if (tool->map[i][j] == tool->m_symb)
-				if (tool->map[i][j] == tool->o_symb)
+				(tool->map[i][j] == tool->m_symb ||
+				tool->map[i][j] == tool->m_symb + 32) ? tool->neib++ : 0;
+				if (tool->map[i][j] == tool->o_symb ||
+					tool->map[i][j] == tool->o_symb + 32)
 					return (false);
 			}
-			y++;
 			j++;
 		}
-		x++;
 		i++;
 	}
 	return (true);
@@ -45,9 +43,7 @@ bool	is_space(t_map *tool, int i, int j)
 
 bool		in_map(t_map *tool, int i, int j)
 {
-	// ft_printf("%d + %d < %d\t", tool->end.x, i, tool->map_x);
-	// ft_printf("%d + %d < %d\n", tool->end.y, j, tool->map_y);
-	if (tool->end.x + i < tool->map_x && tool->end.y + j < tool->map_y)
+	if ((tool->piece_x + i < tool->map_x + 1) && (tool->piece_y + j < tool->map_y + 1))
 		return (true);
 	return (false);
 }
@@ -58,8 +54,8 @@ void	algo(t_map *tool)
 	int			j;
 	t_coords	xy;
 
-	xy.x = -120;
-	xy.y = -120;
+	xy.x = 0;
+	xy.y = 0;
 	xy.dist = 9999;
 	i = 0;
 	while (tool->map[i])
@@ -74,5 +70,18 @@ void	algo(t_map *tool)
 		}
 		i++;
 	}
-	ft_printf("%d %d", xy.x, xy.y);
+	ft_printf("%d %d\n", xy.x, xy.y);
+}
+
+void	read_map_loop(t_map *tool)
+{
+	while (42)
+	{
+		fill_map(tool);
+		algo(tool);
+		if (tool->ret != 1)
+			break ;
+		// dprintf(2, "%d\n", system("leaks vzomber.filler"));
+		while (1);
+	}
 }

@@ -10,17 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/filler.h"
+#include "../includes/filler.h"
 
 char	**ft_memforarr(char **arr, int x, int y)
 {
 	int i;
 
-	arr = (char **)malloc(sizeof(char*) * x + 1);
+	arr = (char **)ft_memalloc(sizeof(char*) * (x + 1));
 	i = -1;
 	while (i < x)
-		arr[++i] = (char*)malloc(sizeof(char) * y + 1);
-	arr[++i] = NULL;
+		arr[++i] = (char*)ft_memalloc(sizeof(char) * (y + 1));
 	return (arr);
 }
 
@@ -29,7 +28,7 @@ void	check_player(t_map *tool)
 	char	*line = NULL;
 
 	get_next_line(0, &line);
-	if (ft_strstr(line, "vzomber"))
+	if (ft_strstr(line, "p1"))
 	{
 		tool->m_symb = 'O';
 		tool->o_symb = 'X';
@@ -39,17 +38,17 @@ void	check_player(t_map *tool)
 		tool->m_symb = 'X';
 		tool->o_symb = 'O';
 	}
-	free(line);
+	ft_strdel(&line);
 }
 
-void	show_arr(char **arr)///////////////////////////
+void	show_arr(char **arr)		//////////////	DELETE	//////////////
 {
 	int i;
 
 	i = 0;
 	while (arr[i])
 	{
-		ft_putendl(arr[i]);
+		dprintf(2, "LINE: %s\n",arr[i]);
 		i++;
 	}
 }
@@ -58,10 +57,12 @@ int		main(void)
 {
 	t_map	tool;
 
-	system("rm -rf log");
-	set_struct_0(&tool);
+	ft_bzero(&tool, sizeof(tool));
 	check_player(&tool);
 	make_map(&tool);
-	read_map_loop(&tool);
+
+	while (1);
+	// read_map_loop(&tool);
 	return (0);
 }
+

@@ -29,22 +29,22 @@ typedef	struct		s_map
 		int			map_x;
 		int			map_y;
 		char		**piece;
-		t_coords	start;
-		t_coords	end;
+		int			piece_x;
+		int			piece_y;
 		char		m_symb;
 		char		o_symb;
 		int			neib;
+		int			ret;
 }					t_map;
 
 char				**ft_memforarr(char **arr, int x, int y);
 void				check_player(t_map *map);
-void				make_map(t_map *tools);
+int					make_map(t_map *tools);
 void				make_piece(t_map *tool, char *line);
 void				fill_map(t_map *tool);
 void				read_map_loop(t_map *tool);
 void				algo(t_map *tool);
 void				show_arr(char **arr);
-void				algo(t_map *tool);
 void				set_struct_0(t_map *tool);
 bool				is_space(t_map *tool, int i, int j);
 void				find_dist(t_map *tool, t_coords *xy, int i, int j);

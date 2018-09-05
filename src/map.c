@@ -25,13 +25,14 @@ int			make_map(t_map *tool)
 		ft_strdel(&line);
 	}
 	tmp = ft_strsplit(line, ' ');
-	// tool->map_x = ft_atoi(tmp[1]);
-	// tool->map_y = ft_atoi(tmp[2]);
-	// tool->map = ft_memforarr(tool->map, ft_atoi(tmp[1]), ft_atoi(tmp[2]));
+	tool->map_x = ft_atoi(tmp[1]);
+	tool->map_y = ft_atoi(tmp[2]);
+	tool->map = ft_memforarr(tool->map, ft_atoi(tmp[1]), ft_atoi(tmp[2]));
 	i = -1;
 	while (tmp[++i])
 		ft_strdel(&tmp[i]);
-	 ft_strdel(&line);
+	free(tmp);
+	ft_strdel(&line);
 	// show_arr(tool->map);
 	return (1);
 }
@@ -60,7 +61,7 @@ void			make_piece(t_map *tool, char *line)
 	i = -1;
 	while (tmp[++i])
 		ft_strdel(&tmp[i]);
-//	dprintf(2, "PIECE:\n");
+	free(tmp);
 //	show_arr(tool->piece);
 }
 

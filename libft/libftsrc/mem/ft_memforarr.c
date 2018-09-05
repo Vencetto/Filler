@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memalloc.c                                      :+:      :+:    :+:   */
+/*   ft_memforarr.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vzomber <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/21 13:43:03 by vzomber           #+#    #+#             */
-/*   Updated: 2017/11/30 18:16:59 by vzomber          ###   ########.fr       */
+/*   Created: 2018/09/05 12:53:33 by vzomber           #+#    #+#             */
+/*   Updated: 2018/09/05 12:53:35 by vzomber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memalloc(size_t size)
+char	**ft_memforarr(char **arr, int x, int y)
 {
-	char	*s;
-	size_t	i;
+	int i;
 
-	s = malloc(size);
-	if (s == NULL || !size)
-		return (NULL);
-	i = 0;
-	while (i < size)
-	{
-		s[i] = 0;
-		i++;
-	}
-	return (s);
+	arr = (char **)ft_memalloc(sizeof(char*) * (x + 1));
+	i = -1;
+	while (++i < x)
+		arr[i] = (char*)ft_memalloc(sizeof(char) * (y + 1));
+	arr[i] = NULL;
+	return (arr);
 }

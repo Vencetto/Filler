@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/filler.h"
+#include "filler.h"
 
 bool	is_space(t_map *tool, int i, int j)
 {
@@ -82,6 +82,6 @@ void	read_map_loop(t_map *tool)
 		if (tool->ret != 1)
 			break ;
 		// dprintf(2, "%d\n", system("leaks vzomber.filler"));
-		while (1);
+		// while (1);
 	}
 }

@@ -1,30 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memalloc.c                                      :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vzomber <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/21 13:43:03 by vzomber           #+#    #+#             */
-/*   Updated: 2017/11/30 18:16:59 by vzomber          ###   ########.fr       */
+/*   Created: 2018/09/05 13:34:54 by vzomber           #+#    #+#             */
+/*   Updated: 2018/09/05 13:34:56 by vzomber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "visual.h"
 
-void	*ft_memalloc(size_t size)
+void	make_point(int i, int j, t_vsl *tool)
 {
-	char	*s;
-	size_t	i;
+	t_pnt	pnt;
 
-	s = malloc(size);
-	if (s == NULL || !size)
-		return (NULL);
-	i = 0;
-	while (i < size)
+	pnt.x = i * tool->dist;
+	pnt.y = j * tool->dist;
+	pnt.symb = tool->map[i][j];
+	tool->arr[i][j] = pnt;
+}
+
+void	split_map(t_vsl *tool)
+{
+	int		i;
+	int		j;
+
+	i = -1;
+	while (++i < tool->map_x)
 	{
-		s[i] = 0;
-		i++;
+		j = -1;
+		while (++j < tool->map_y)
+		{
+			dprintf(2, "%c", tool->map[i][j]);
+			make_point(i, j, tool);
+		}
+		dprintf(2, "\n");
 	}
-	return (s);
 }

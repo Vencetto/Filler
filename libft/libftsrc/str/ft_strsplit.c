@@ -37,18 +37,18 @@ static	t_pack	help_func(t_pack *struc)
 char			**ft_strsplit(char const *s, char c)
 {
 	char	**arr;
-	int		tmp;
+	int		wordsnum;
 	t_pack	struc;
 
 	if (!s || !(arr = (char**)malloc(sizeof(char*) * (ft_wordnum(s, c) + 1))))
 		return (NULL);
 	struc.k = 0;
 	struc.i = 0;
-	tmp = ft_wordnum(s, c);
+	wordsnum = ft_wordnum(s, c);
 	struc.s = (char *)s;
 	struc.c = c;
 	struc.arr = arr;
-	while (struc.k < tmp)
+	while (struc.k < wordsnum)
 		struc = help_func(&struc);
 	arr[struc.k] = NULL;
 	return (arr);

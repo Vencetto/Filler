@@ -1,33 +1,55 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   additional.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vzomber <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/08/13 15:18:34 by vzomber           #+#    #+#             */
-/*   Updated: 2018/08/13 15:19:01 by vzomber          ###   ########.fr       */
+/*   Created: 2018/09/04 17:47:51 by vzomber           #+#    #+#             */
+/*   Updated: 2018/09/04 17:47:53 by vzomber          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "filler.h"
+#include "visual.h"
 
-void	check_player(t_map *tool)
+int		just_exit(void *param)
 {
-	char	*line = NULL;
+	(void)param;
+	exit(0);
+	return (0);
+}
 
-	get_next_line(0, &line);
-	if (ft_strstr(line, "p1"))
+int		deal_key(int key, t_vsl *tool)
+{
+	if (key == 53)
+		just_exit((void *)0);
+	else if (key == 49)
+		visual(tool);
+	// if (key == 'space')
+		// make_all_stop();
+	return (0);
+}
+
+void	ft_get_shift(t_vsl *tool)
+{
+	if (tool->map_y == 17)
 	{
-		tool->m_symb = 'O';
-		tool->o_symb = 'X';
+		tool->dist = 30;
+		tool->sh_x = 0;
+		tool->sh_y = 0;
 	}
-	else
+	if (tool->map_y == 40)
 	{
-		tool->m_symb = 'X';
-		tool->o_symb = 'O';
+		tool->dist = 20;
+		tool->sh_x = 265;
+		tool->sh_y = 105;
 	}
-	ft_strdel(&line);
+	if (tool->map_y == 99)
+	{
+		tool->dist = 10;
+		tool->sh_x = 0;
+		tool->sh_y = 0;
+	}
 }
 
 void	show_arr(char **arr)		//////////////	DELETE	//////////////
@@ -41,17 +63,3 @@ void	show_arr(char **arr)		//////////////	DELETE	//////////////
 		i++;
 	}
 }
-
-int		main(void)
-{
-	t_map	tool;
-
-	ft_bzero(&tool, sizeof(tool));
-	check_player(&tool);
-	make_map(&tool);
-
-	// while (1);
-	read_map_loop(&tool);
-	return (0);
-}
-

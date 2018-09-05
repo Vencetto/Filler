@@ -112,4 +112,5 @@ void				ft_uhuge_mzfk(uintmax_t nb);
 void				*ft_memcpy_fwd(void *dst, const void *src, size_t n);
 char				*ft_concat(char *s1, char *s2);
 void				ft_arrfree(char **arr);
+char				**ft_memforarr(char **arr, int x, int y);
 #endif

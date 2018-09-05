@@ -30,7 +30,7 @@ SRCLIB =	libftsrc/else/ft_abs.c libftsrc/else/ft_atoi.c libftsrc/else/ft_bzero.c
 			libftsrc/put/ft_putchar.c libftsrc/put/ft_putchar_fd.c libftsrc/put/ft_putendl.c libftsrc/put/ft_putendl_fd.c libftsrc/put/ft_putnbr.c libftsrc/put/ft_putnbr_fd.c \
 			libftsrc/put/ft_putnbr_m.c libftsrc/put/ft_putstr.c libftsrc/put/ft_putstr_fd.c libftsrc/put/ft_putunistr.c libftsrc/put/ft_putwchar.c libftsrc/put/ft_uputnbr_m.c \
 			libftsrc/mem/ft_memalloc.c libftsrc/mem/ft_memccpy.c libftsrc/mem/ft_memchr.c libftsrc/mem/ft_memcmp.c libftsrc/mem/ft_memcpy.c libftsrc/mem/ft_memdel.c \
-			libftsrc/mem/ft_memmove.c libftsrc/mem/ft_memset.c libftsrc/mem/ft_memcpy_fwd.c  \
+			libftsrc/mem/ft_memmove.c libftsrc/mem/ft_memset.c libftsrc/mem/ft_memcpy_fwd.c libftsrc/mem/ft_memforarr.c\
 			libftsrc/lst/ft_lstadd.c libftsrc/lst/ft_lstdel.c libftsrc/lst/ft_lstdelone.c libftsrc/lst/ft_lstend.c libftsrc/lst/ft_lstiter.c libftsrc/lst/ft_lstmap.c libftsrc/lst/ft_lstnew.c
  
  

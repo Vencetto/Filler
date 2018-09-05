@@ -37,7 +37,6 @@ typedef	struct		s_map
 		int			ret;
 }					t_map;
 
-char				**ft_memforarr(char **arr, int x, int y);
 void				check_player(t_map *map);
 int					make_map(t_map *tools);
 void				make_piece(t_map *tool, char *line);
@@ -54,5 +53,6 @@ int					distance(int x1, int y1, int x2, int y2);
 void				find_start(t_map *tool);
 bool				in_map(t_map *tool, int i, int j);
 void				find_end(t_map *tool);
+void				visual(t_map *tool);
 
 #endif

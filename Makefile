@@ -13,7 +13,7 @@
 NAME = vzomber.filler
 VISUAL = visual
 SRC  = src/main.c src/map.c src/algorithm.c src/dist.c
-V_SRC = vsl/main.c vsl/additional.c vsl/draw.c vsl/parser.c
+V_SRC = vsl/main.c vsl/additional.c vsl/draw.c
 OBJ = $(SRC:.c=.o)
 V_OBJ = $(V_SRC:.c=.o)
 FLAGS = -Wall -Wextra -Werror

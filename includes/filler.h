@@ -18,23 +18,23 @@
 
 typedef	struct		s_coords
 {
-			int		x;
-			int		y;
-			int		dist;
+	int				x;
+	int				y;
+	int				dist;
 }					t_coords;
 
 typedef	struct		s_map
 {
-		char		**map;
-		int			map_x;
-		int			map_y;
-		char		**piece;
-		int			piece_x;
-		int			piece_y;
-		char		m_symb;
-		char		o_symb;
-		int			neib;
-		int			ret;
+	char			**map;
+	int				map_x;
+	int				map_y;
+	char			**piece;
+	int				piece_x;
+	int				piece_y;
+	char			m_symb;
+	char			o_symb;
+	int				neib;
+	int				ret;
 }					t_map;
 
 void				check_player(t_map *map);
@@ -47,7 +47,7 @@ void				show_arr(char **arr);
 void				set_struct_0(t_map *tool);
 bool				is_space(t_map *tool, int i, int j);
 void				find_dist(t_map *tool, t_coords *xy, int i, int j);
-void				figure_dist(t_map *tool, t_coords *enemy, int , int j);
+void				figure_dist(t_map *tool, t_coords *enemy, int i, int j);
 void				find_nearest(t_coords *enemy, t_map *tool, int i, int j);
 int					distance(int x1, int y1, int x2, int y2);
 void				find_start(t_map *tool);

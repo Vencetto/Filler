@@ -71,12 +71,9 @@ void	draw_map(t_vsl *tool)
 	{
 		j = -1;
 		while (++j < tool->map_y)
-		{
-			// dprintf(2, "x %d y %d\n", i, j);
 			draw_symb(tool, i, j);
-		}
 	}
 	mlx_string_put(tool->mlx, tool->win, 475, 50, 0x00ffcb, "Filler");
-	mlx_string_put(tool->mlx, tool->win, 350, 70, 0x00ffcb, "Player 1 - green, player 2 - red!");
+	mlx_string_put(tool->mlx, tool->win, 350, 70, 0x00ffcb,
+		"Player 1 - green, player 2 - red!");
 }
-

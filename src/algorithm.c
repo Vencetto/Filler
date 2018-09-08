@@ -12,7 +12,7 @@
 
 #include "filler.h"
 
-bool	is_space(t_map *tool, int i, int j)
+bool			is_space(t_map *tool, int i, int j)
 {
 	int	tmp;
 	int	x;
@@ -41,14 +41,15 @@ bool	is_space(t_map *tool, int i, int j)
 	return (true);
 }
 
-bool		in_map(t_map *tool, int i, int j)
+bool			in_map(t_map *tool, int i, int j)
 {
-	if ((tool->piece_x + i < tool->map_x + 1) && (tool->piece_y + j < tool->map_y + 1))
+	if ((tool->piece_x + i < tool->map_x + 1) &&
+		(tool->piece_y + j < tool->map_y + 1))
 		return (true);
 	return (false);
 }
 
-void	algo(t_map *tool)
+void			algo(t_map *tool)
 {
 	int			i;
 	int			j;
@@ -73,7 +74,7 @@ void	algo(t_map *tool)
 	ft_printf("%d %d\n", xy.x, xy.y);
 }
 
-void	read_map_loop(t_map *tool)
+void			read_map_loop(t_map *tool)
 {
 	while (42)
 	{
@@ -81,7 +82,5 @@ void	read_map_loop(t_map *tool)
 		algo(tool);
 		if (tool->ret != 1)
 			break ;
-		// dprintf(2, "%d\n", system("leaks vzomber.filler"));
-		// while (1);
 	}
 }

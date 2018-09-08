@@ -12,21 +12,18 @@
 
 #include "visual.h"
 
-int		fill_map_2(t_vsl *tool)
+int			fill_map_2(t_vsl *tool)
 {
-	char	*line = NULL;
+	char	*line;
 	int		i;
 
+	line = NULL;
 	i = 0;
 	while (get_next_line(0, &line) && tool->map[i])
 	{
 		if (ft_strstr(line, "Piece"))
-		{
-			// add_info(tool, line);
 			break ;
-		}
 		ft_strcpy(tool->map[i], line + 4);
-		// dprintf(2, "%s\n", line + 4);
 		i++;
 		ft_strdel(&line);
 	}
@@ -34,14 +31,14 @@ int		fill_map_2(t_vsl *tool)
 	if (!line)
 		return (0);
 	ft_strdel(&line);
-	// dprintf(2, "\n");
 	return (1);
 }
 
-int		fill_map(t_vsl *tool)
+int			fill_map(t_vsl *tool)
 {
-	char	*line = NULL;
+	char	*line;
 
+	line = NULL;
 	while (get_next_line(0, &line))
 	{
 		if (ft_strstr(line, "Plateau"))
@@ -58,16 +55,17 @@ int		fill_map(t_vsl *tool)
 	return (1);
 }
 
-bool	ft_get_size(t_vsl *tool)
+bool		ft_get_size(t_vsl *tool)
 {
 	char	**tmp;
-	char	*line = NULL;
+	char	*line;
 	int		i;
 
+	line = NULL;
 	while (get_next_line(0, &line))
 	{
 		if (ft_strstr(line, "Plateau"))
-			break;
+			break ;
 		ft_strdel(&line);
 	}
 	if (!line)
@@ -92,7 +90,7 @@ void		visual(t_vsl *tool)
 		tool->score1 = 0;
 		tool->score2 = 0;
 		end_of_the_game(tool);
-		return;
+		return ;
 	}
 	mlx_clear_window(tool->mlx, tool->win);
 	draw_map(tool);

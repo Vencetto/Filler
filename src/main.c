@@ -14,8 +14,9 @@
 
 void	check_player(t_map *tool)
 {
-	char	*line = NULL;
+	char	*line;
 
+	line = NULL;
 	get_next_line(0, &line);
 	if (ft_strstr(line, "p1"))
 	{
@@ -30,18 +31,6 @@ void	check_player(t_map *tool)
 	ft_strdel(&line);
 }
 
-void	show_arr(char **arr)		//////////////	DELETE	//////////////
-{
-	int i;
-
-	i = 0;
-	while (arr[i])
-	{
-		dprintf(2, "LINE: %s\n",arr[i]);
-		i++;
-	}
-}
-
 int		main(void)
 {
 	t_map	tool;
@@ -49,9 +38,6 @@ int		main(void)
 	ft_bzero(&tool, sizeof(tool));
 	check_player(&tool);
 	make_map(&tool);
-
-	// while (1);
 	read_map_loop(&tool);
 	return (0);
 }
-

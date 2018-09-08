@@ -34,7 +34,8 @@ void	end_of_the_game(t_vsl *tool)
 	else if (tool->score1 < tool->score2)
 		mlx_string_put(tool->mlx, tool->win, 445, 100, PL1, "Player 2 won!");
 	else if (tool->score1 == tool->score2)
-		mlx_string_put(tool->mlx, tool->win, 445, 100, 0x00ffcb, "It's a draw!");
+		mlx_string_put(tool->mlx, tool->win,
+			445, 100, 0x00ffcb, "It's a draw!");
 }
 
 int		just_exit(void *param)
@@ -50,8 +51,6 @@ int		deal_key(int key, t_vsl *tool)
 		just_exit((void *)0);
 	else if (key == 49)
 		visual(tool);
-	// if (key == 'space')
-		// make_all_stop();
 	return (0);
 }
 
@@ -77,17 +76,5 @@ void	ft_get_shift(t_vsl *tool)
 		tool->size = 5;
 		tool->sh_x = 100;
 		tool->sh_y = 100;
-	}
-}
-
-void	show_arr(char **arr)		//////////////	DELETE	//////////////
-{
-	int i;
-
-	i = 0;
-	while (arr[i])
-	{
-		dprintf(2, "LINE: %s\n",arr[i]);
-		i++;
 	}
 }

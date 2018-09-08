@@ -14,10 +14,11 @@
 
 int			make_map(t_map *tool)
 {
-	char	*line = NULL;
+	char	*line;
 	char	**tmp;
 	int		i;
 
+	line = NULL;
 	while ((tool->ret = get_next_line(0, &line)) > 0)
 	{
 		if (ft_strstr(line, "Plateau"))
@@ -33,11 +34,10 @@ int			make_map(t_map *tool)
 		ft_strdel(&tmp[i]);
 	free(tmp);
 	ft_strdel(&line);
-	// show_arr(tool->map);
 	return (1);
 }
 
-void			make_piece(t_map *tool, char *line)
+void		make_piece(t_map *tool, char *line)
 {
 	int		i;
 	char	**tmp;
@@ -62,16 +62,15 @@ void			make_piece(t_map *tool, char *line)
 	while (tmp[++i])
 		ft_strdel(&tmp[i]);
 	free(tmp);
-//	show_arr(tool->piece);
 }
 
 void		fill_map(t_map *tool)
 {
-	char	*line = NULL;
+	char	*line;
 	int		i;
 
 	i = 0;
-
+	line = NULL;
 	tool->ret = get_next_line(0, &line);
 	if (ft_strstr(line, "Plateau"))
 	{
@@ -88,8 +87,7 @@ void		fill_map(t_map *tool)
 		ft_strdel(&line);
 	}
 	tool->map[i] = NULL;
-	// show_arr(tool->map);
 	if (!line)
 		return ;
-		make_piece(tool, line);
+	make_piece(tool, line);
 }

@@ -16,5 +16,6 @@ A game. Goal is to get as big area as possible.
  <img src="https://github.com/Vencetto/Filler/blob/master/screen_1.png" width="400" height="700" />
  
  # and visual mode
- to run visual mode add _| ./visual_ after command 
+ to run visual mode add _| ./visual_ after command
+ 
  <img src="https://github.com/Vencetto/Filler/blob/master/screen_2.png" width="800" height="700" />
